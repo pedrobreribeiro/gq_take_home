@@ -16,6 +16,7 @@
         "app/packs/*"
       ],
       "@api/*": ["app/javascript/api/*"],
+      "@hooks/*": ["app/javascript/hooks/*"],
     },
     "sourceMap": true,
     "target": "es5",

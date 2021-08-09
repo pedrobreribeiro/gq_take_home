@@ -1,32 +1,25 @@
 import * as React from 'react';
 import { useState } from 'react';
-import { updateIncentive } from '@api/endpoints';
 
 interface Props {
-  data: Incentive[];
+  create: (code: string) => void;
+  loading: boolean;
+  error: string | null;
 }
-export const IncentiveForm: React.FC<Props> = ({ data }) => {
-  const [saving, setSaving] = useState(false);
-  const [message, setMessage] = useState('');
-  const [inputValue, setInputValue] = useState(data[0].code);
+
+export const IncentiveForm: React.FC<Props> = ({ create, loading, error }) => {
+  const [inputValue, setInputValue] = useState('');
 
   async function handleClickSave() {
-    setSaving(true);
-    const incentive = await updateIncentive(data[0].id, { code: inputValue });
-    if (incentive) {
-      setMessage('Successfully updated!');
-      setTimeout(() => setMessage(''), 2000);
-    } else {
-      setMessage('An error occured');
-    }
-    setSaving(false);
+    await create(inputValue);
+    setInputValue('');
   }
 
   return (
     <div>
       <div className="flex space-x-2 pb-4">
         <input
-          disabled={saving}
+          disabled={loading}
           className="text-xl border"
           type="text"
           name="incentive_code"
@@ -34,14 +27,21 @@ export const IncentiveForm: React.FC<Props> = ({ data }) => {
           onChange={e => setInputValue(e.currentTarget.value)}
         />
         <button
-          disabled={saving}
+          disabled={loading}
           className="hover:bg-gray-100 bg-gray-200 rounded-md px-4 py-2"
           onClick={handleClickSave}
         >
           Save
         </button>
       </div>
-      {message && <div className="text-gray-600 italic">{message}</div>}
+
+      {error && (
+        <div className="pb-4 text-red-600 italic">
+          {error}
+        </div>
+      )}
     </div>
   );
 };
+
+export default IncentiveForm;

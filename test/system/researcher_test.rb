@@ -2,30 +2,26 @@ require "application_system_test_case"
 
 class ResearcherTest < ApplicationSystemTestCase
 
-  describe 'viewing_incentive' do
+  describe 'viewing incentive' do
     setup do 
       create(:incentive, code: 'COUPON_123')
+      create(:incentive, code: 'COUPON_456', redeemed: true)
     end
 
-    it 'should_show_the_current_coupon' do
+    it 'should show all incentives' do
       visit '/setup'
-      assert_equal 'COUPON_123', find_field('incentive_code').value
+      assert_text 'COUPON_123'
+      assert_text 'COUPON_456'
+      assert_text 'Redeemed'
     end
   end
 
-  describe 'updating_incentive' do
-    let(:incentive) { create(:incentive, code: 'OLD_CODE')}
-
-    setup do
-      incentive ## create incentive beforehand as let doesnt run until called
-    end
-    
-    it 'should_update_the_code' do
+  describe 'creating incentive' do
+    it 'should show created incentive' do
       visit '/setup'
       fill_in 'incentive_code', with: 'NEW_CODE'
       click_on 'Save'
-      assert_text 'Successfully updated'
-      assert_equal 'NEW_CODE', incentive.reload.code
+      assert_text 'NEW_CODE'
     end
   end
 end

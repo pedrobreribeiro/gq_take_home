@@ -1,31 +1,31 @@
 import * as React from 'react';
-import { useState } from 'react';
 
-interface Props {
-  data: Incentive[];
-}
-export const Redeem: React.FC<Props> = ({ data }) => {
-  const [redeemed, setRedeemed] = useState(false);
+import useIncentive from '@hooks/useIncentive';
 
-  async function handleClickRedeem() {
-    setRedeemed(true);
-  }
+export const Redeem: React.FC = () => {
+  const { loading, error, redeemedIncentive, redeem } = useIncentive();
 
   return (
     <div>
       <div className="pb-4">
         <button
-          disabled={redeemed}
+          disabled={loading}
           className="hover:bg-gray-100 bg-gray-200 rounded-md px-4 py-2"
-          onClick={handleClickRedeem}
+          onClick={redeem}
         >
-          Redeem
+          {loading ? 'loading...' : 'Redeem'}
         </button>
       </div>
 
-      {redeemed && (
+      {!error && redeemedIncentive && (
         <div className="py-4 text-green-600 italic">
-          Your code is: {data[0].code}. Thanks for participating in our research!
+          Your code is: <span className="font-bold">{redeemedIncentive.code}</span>. Thanks for participating in our research!
+        </div>
+      )}
+
+      {error && (
+        <div className="py-4 text-red-600 italic">
+          {error}
         </div>
       )}
     </div>
