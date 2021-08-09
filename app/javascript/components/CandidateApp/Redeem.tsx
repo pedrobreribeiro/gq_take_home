@@ -19,7 +19,7 @@ export const Redeem: React.FC = () => {
 
       {!error && redeemedIncentive && (
         <div className="py-4 text-green-600 italic">
-          Your code is: {redeemedIncentive.code}. Thanks for participating in our research!
+          Your code is: <span className="font-bold">{redeemedIncentive.code}</span>. Thanks for participating in our research!
         </div>
       )}
 

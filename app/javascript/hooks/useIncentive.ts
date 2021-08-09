@@ -22,7 +22,7 @@ type Action = { type: Actions.SET_LOADING, payload: boolean }
   | { type: Actions.SET_REDEEMED_INCENTIVE, payload: Incentive }
  
 
-interface Hook extends State {
+export interface Hook extends State {
   list: () => Promise<void>;
   create: (code: string) => Promise<void>;
   redeem: () => Promise<void>;

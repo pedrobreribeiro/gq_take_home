@@ -5,4 +5,9 @@ module.exports = {
   transform: {
     '.+\\.(js|jsx|ts|tsx)$': 'babel-jest',
   },
+  setupFilesAfterEnv: ['<rootDir>/config/testing-library/setup.js'],
+  moduleNameMapper: {
+    '@api(.*)$': '<rootDir>/app/javascript/api$1',
+    '@hooks(.*)$': '<rootDir>/app/javascript/hooks$1',
+  },
 };
