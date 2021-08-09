@@ -51,6 +51,8 @@ yarn test
 I've setup `JEST` and `RTL` in order to showcase some unit tests on the FE apps.\
 For the sake of the challenge I've added `jest-fetch-mock` to mock the API calls, a better solution would be to use `msw` but I don't think it would bring any value to this context.
 
+Also I didn't add any tests for the custom hook (`useIncentive`) (seemed out of scope), to do so I would use `@testing-library/react-hooks` package.
+
 ## Eslint
 
 I noticed that the `eslintrc.` file was using exporting a JS module and as a result it was not working, so I tried to adapt the eslint to the current code patterns, although I didn't add any black listed files, so there might be linting errors outside the `app` folder.
